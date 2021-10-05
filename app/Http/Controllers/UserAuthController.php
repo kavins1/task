@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Jobs\SendEmailJob;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
+use App\Models\Post;
 class UserAuthController extends Controller
 {
    public function __construct(Post $post)
@@ -53,7 +53,7 @@ class UserAuthController extends Controller
 
     function check(Request $request)
     {
-        // return $request->input();    
+        return $request->input();    
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:email',
@@ -62,7 +62,7 @@ class UserAuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (User::attempt($credentials)) {
+        if (Post::attempt($credentials)) {
             return redirect()->intended('dashboard');
         }
 
