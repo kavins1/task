@@ -1,7 +1,6 @@
 <?php
 
-namespace Sparkout\User\App\Http\Controllers;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 
@@ -16,7 +15,7 @@ class StudentController extends Controller
     public function index()
     {
         $student = Student::all();
-        return view('user::index', compact('student'));
+        return view('index', compact('student'));
 
     }
 
