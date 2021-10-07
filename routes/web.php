@@ -37,8 +37,6 @@ Route::get('post',[UserAuthController::class,'post']);
 
 Route::get('customer',[CustomerController::class,'index']);
 
-Route::get('view',[HomeController::class,'view']);
-
-Route::post('import',[HomeController::class,'import']);
-
-Route::get('export',[HomeController::class,'export']);
+Route::get('importExportView', [HomeController::class, 'importExportView']);
+Route::get('export', [HomeController::class, 'export'])->name('export');
+Route::post('import', [HomeController::class, 'import'])->name('import');

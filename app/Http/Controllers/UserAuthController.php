@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Hash;
 use App\Jobs\SendEmailJob;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use App\Models\Post;
+use App\Models\User;
 class UserAuthController extends Controller
 {
-   public function __construct(Post $post)
-   {
-       $this->post=$post;
-   }
+//    public function __construct(User $post)
+//    {
+//        $this->post=$post;
+//    }
 
     function login(){
         return view('auth.login');
@@ -34,9 +34,9 @@ class UserAuthController extends Controller
         'password' => 'required'
     ]);
 
-    $user= $this->post->where('email',$request->email)->first();
-    dispatch( new SendEmailJob($user));
-    $post = new Post();
+    // $user= $this->User->where('email',$request->email)->first();
+    // dispatch( new SendEmailJob($user));
+    $post = new User();
     $post->name = $request->name;
     $post->email = $request->email;
     $post->password = Hash::make($request->password);
@@ -47,13 +47,13 @@ class UserAuthController extends Controller
     // }else{
     //     return back()->with('fail','somthing is wrong');
     // }
-    return redirect()->route('students.index')->with('success','Login Successfully');
+    return redirect()->route('students.index')->with('success','Register Successfully');
 
     }
 
     function check(Request $request)
     {
-        return $request->input();    
+        // return $request->input();    
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:email',
@@ -62,7 +62,7 @@ class UserAuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (Post::attempt($credentials)) {
+        if (User::attempt($credentials)) {
             return redirect()->intended('dashboard');
         }
 

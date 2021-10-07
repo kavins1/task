@@ -1,26 +1,37 @@
 <?php
-
+     
 namespace App\Http\Controllers;
-
+    
 use Illuminate\Http\Request;
-use App\Imports\UserImport;
-use App\Exports\Userexport;
-use Maatwebsite\Excel\Facdes\Excel;
-class HomeController extends Controller
+use App\Exports\UsersExport;
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
+    
+class MyController extends Controller
 {
-    public function view()
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function importExportView()
     {
-        return view('importexportview');
+       return view('import');
     }
-
-    // public function import()
-    // {
-    //      Excel ::Import(new UsersImport, request()->file('file'));
-    //     return redirect()->back();
-    // }
- 
-    public function export()
+     
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function export() 
     {
-        return Excel::download(new UserExport,'user.xlsx');
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
+     
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function import() 
+    {
+        Excel::import(new UsersImport,request()->file('file'));
+             
+        return back();
     }
 }

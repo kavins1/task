@@ -48,7 +48,7 @@ class StudentController extends Controller
         ]);
         $student = Student::create($storeData);
     
-        return redirect('students')->with('students', 'Student has been post successfull');
+        return redirect('use::students')->with('students', 'Student has been post successfull');
     
   
        
@@ -74,7 +74,7 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = Student::findOrFail($id);
-        return view('edit', compact('student'));
+        return view('user::edit', compact('student'));
     }
 
     /**
@@ -96,7 +96,7 @@ class StudentController extends Controller
         ]);
     
         Student::whereId($id)->update($updateData);
-        return redirect()->route('students')->with('students', 'Student has been updated');
+        return redirect()->route('user::students')->with('students', 'Student has been updated');
         
   
     }
